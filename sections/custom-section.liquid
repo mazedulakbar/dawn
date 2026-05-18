@@ -1,0 +1,84 @@
+<div style="background-color: {{ section.settings.background }}; padding: 20px;">
+  <div class="page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+    <h1 style="color: {{ section.settings.text_color }};">{{ section.settings.text }}</h1>
+
+    <ul>
+      {% for block in section.blocks %}
+        {% if block.type == 'social' %}
+          <li>
+            <a href="{{ block.settings.url }}">{{ block.settings.text }}</a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+
+    {% for block in section.blocks %}
+      {% if block.type == 'paragraph' %}
+        <p>{{ block.settings.text }}</p>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Section",
+  "tag": "section",
+  "class": "custom-section",
+  //"limit": 1, এর কাজ হলো কতগুলো block add করা যাবে তার সীমা নির্ধারণ করা
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Heading",
+      "default": "Heading Text"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background",
+      "default": "#efefef"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Social Link",
+      "type": "social",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        }
+      ]
+    },
+    {
+      "name": "Paragraph",
+      "type": "paragraph",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default Custom Section"
+    }
+  ]
+}
+{% endschema %}
